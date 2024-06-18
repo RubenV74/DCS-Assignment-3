@@ -1,9 +1,9 @@
-import logo from './logo.svg';
-import './App.css';
-import FamilyCard from "./Components/FamilyCard";
+import Main from './Components/Main'
 function App() {
+
+
   return (
-      <FamilyCard/>
+     <Main/>
   );
 }
 

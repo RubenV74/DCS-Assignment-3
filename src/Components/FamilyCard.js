@@ -1,25 +1,24 @@
-import React, {useEffect, useState} from "react";
-import Card from '@mui/material/Card';
-import {getAllFamilies} from '../Requests/FamilyRequests'
- const FamilyCard = () => {
+import React from "react";
+import {Card, CardHeader, CardContent, Typography} from '@mui/material';
 
-    const [families, setFamilies] = useState([]);
-
-    useEffect (()=>{
-        getAllFamilies().
-            then((families) => setFamilies(families.data))
-     },[])
-
+const FamilyCard = ({family}) => {
     return (
-       families.map((family)=>{
-           return (
-               <div>
-                   <h1>family.name</h1>
-                   <h2>Members:</h2>
-                   family.members.map((member) =><p>member</p>);
-               </div>
-                   )
-       })
+
+        <Card>
+        <CardContent>
+            <Typography variant="h5" component="div">
+                {family.name}
+            </Typography>
+                {
+                    family.members.map((member, idx) =>
+                    {
+                    return(
+                    <Typography variant="body2" color="text.secondary">
+                         {member}
+                        </Typography>
+                    )})}
+              </CardContent>
+      </Card>
     )
 }
-export default FamilyCard
+export default FamilyCard;
