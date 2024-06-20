@@ -23,7 +23,7 @@ const Main = ()=>{
                 <Grid container spacing={3}>
                     {families.map((family) => (
                         <Grid item xs={12} sm={6} md={4} key={family._id}>
-                            <FamilyCard family={family} />
+                            <FamilyCard family={family}/>
                         </Grid>
                     ))}
                 </Grid>

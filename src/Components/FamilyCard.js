@@ -1,10 +1,13 @@
 import React from "react";
-import {Card, CardHeader, CardContent, Typography} from '@mui/material';
+import {Card, CardHeader, CardContent, Typography, Button} from '@mui/material';
+import {useNavigate} from "react-router-dom";
 
 const FamilyCard = ({family}) => {
-    return (
+    const navigate = useNavigate();
 
+    return (
         <Card>
+        <Button onClick={()=> navigate(`family/${family._id}`)}>
         <CardContent>
             <Typography variant="h5" component="div">
                 {family.name}
@@ -18,7 +21,8 @@ const FamilyCard = ({family}) => {
                         </Typography>
                     )})}
               </CardContent>
-      </Card>
+        </Button>
+        </Card>
     )
 }
 export default FamilyCard;

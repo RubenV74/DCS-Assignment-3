@@ -36,3 +36,10 @@
     transform: rotate(360deg);
   }
 }
+
+/*Container for centered family card*/
+.FamilyCard {
+  display: flex;
+  align-content: center;
+  background-color: crimson;
+}

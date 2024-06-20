@@ -14,8 +14,43 @@ const getFamilyById = async (id)=> {
        .catch((err)=> console.log(err))
 }
 
+const getFamiliesByName = async (name)=> {
+   return await axios.get(BASE_URL + '/name/' + name)
+       .then((res)=> res.data[0])
+       .catch((err)=> console.log(err))
+}
+
+const getFamiliesByMember = async (member)=> {
+   return await axios.get(BASE_URL + '/member/' + member)
+       .then((res)=> res.data[0])
+       .catch((err)=> console.log(err))
+}
+
+// familyRouter.post("/", familyController.createFamily);
+const createFamily = async (family) => {
+   return await axios.post(BASE_URL, family)
+       .then((res) => res.data)
+       .catch((err) => console.log(err));
+};
+
+// familyRouter.put("/", familyController.editFamily);
+
+// familyRouter.delete("/", familyController.deleteFamily);
+const deleteFamily = async (id) => {
+   return await axios.delete(`${BASE_URL}/${id}`)
+       .then((res) => res.data)
+       .catch((err) => console.log(err));
+};
+
 
 
 export {
    getAllFamilies,
-   getFamilyById};
+   getFamilyById,
+
+   getFamiliesByName,
+   getFamiliesByMember,
+   createFamily,
+   // editFamily,
+   deleteFamily
+};
