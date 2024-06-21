@@ -34,6 +34,15 @@ const createFamily = async (family) => {
 };
 
 // familyRouter.put("/", familyController.editFamily);
+const editFamily = async (id, family) => {
+   return await axios.put(BASE_URL,{
+      query: {_id: id} ,
+      data: family
+   } )
+       .then((res) => res.data)
+       .catch((err) => console.log(err));
+};
+
 
 // familyRouter.delete("/", familyController.deleteFamily);
 const deleteFamily = async (id) => {
@@ -47,10 +56,9 @@ const deleteFamily = async (id) => {
 export {
    getAllFamilies,
    getFamilyById,
-
+   editFamily,
    getFamiliesByName,
    getFamiliesByMember,
    createFamily,
-   // editFamily,
    deleteFamily
 };
