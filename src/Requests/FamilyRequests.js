@@ -46,7 +46,9 @@ const editFamily = async (id, family) => {
 
 // familyRouter.delete("/", familyController.deleteFamily);
 const deleteFamily = async (id) => {
-   return await axios.delete(`${BASE_URL}/${id}`)
+   return await axios.delete(BASE_URL, {
+   data: {id}
+})
        .then((res) => res.data)
        .catch((err) => console.log(err));
 };
