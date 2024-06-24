@@ -1,5 +1,5 @@
 import React, {useEffect, useRef, useState} from "react";
-import {Card, CardContent, Typography, Container, Button, Input, FormControl, FormGroup} from '@mui/material';
+import {Card, CardContent, Typography, Container, Button, TextField, FormControl, FormGroup} from '@mui/material';
 import {useParams } from 'react-router-dom';
 import {CircularProgress} from "@mui/material";
 import {getFamilyById} from "../Requests/FamilyRequests";
@@ -16,8 +16,9 @@ const FamilyPage =  () => {
 
     const onChangeFamilyName = (e) => setFamilyName(e.target.value);
     const onChangeFamilyMember = (idx,e) => {
-        familyMembers[idx] = e.target.value;
-        setFamilyMembers(familyMembers);
+        const updatedMembers = [...familyMembers]; // Create a copy of familyMembers
+        updatedMembers[idx] = e.target.value; // Update the specific member at idx
+        setFamilyMembers(updatedMembers); // Update state with the modified copy
     }
     const onSubmitFamilyEdit = (e) =>{
         editFamily(family._id, {
@@ -30,15 +31,15 @@ const FamilyPage =  () => {
         getFamilyById(familyId)
             .then((data) => {
                 setFamily(data);
-                setFamilyName(family.name)
-                setFamilyMembers(family.members)
+                setFamilyName(data.name)
+                setFamilyMembers(data.members)
                 setLoading(false);
             })
     }, []);
     return (
         loading ? <CircularProgress/> :
         <Container className={'FamilyCard'} >
-            <Card className={'FamilyCard'} >
+            <Card className={'FamilyCard'}>
                 {!isEdit ?
                     <CardContent>
                         <Typography variant="h4" component="h2">
@@ -51,28 +52,36 @@ const FamilyPage =  () => {
                                 </Typography>
                             )
                         })}
-                            <Button onClick={()=>setIsEdit(true)}>Edit</Button>
+                        <Button onClick={() => setIsEdit(true)}>Edit</Button>
                     </CardContent> :
-                    <FormControl onSubit={onSubmitFamilyEdit}>
-                    <FormGroup onSubmit={onSubmitFamilyEdit}>
-                        <Input onChange={onChangeFamilyName} defaultValue={family.name}/>
-                        {family.members.map((member, idx) => {
-                                return (
-                                    <Input ke variant="body2" component="p" onChange={(e)=>onChangeFamilyMember(idx,e)} defaultValue={member}/>
-                                )
-                            }
-                        )}
-                    </FormGroup>
-                        <Button type="submit">Save</Button>
-                        <Button>Delete</Button>
-                        <Button>Cancel</Button>
-                    </FormControl>}
+                    <form onSubmit={onSubmitFamilyEdit}>
+                        <FormControl>
+                            <FormGroup>
+                                <TextField
+                                    onChange={onChangeFamilyName}
+                                    defaultValue={family.name}
+                                    label="Family Name"
+                                />
+                                {family.members.map((member, idx) => (
+                                    <TextField
+                                        key={idx}
+                                        variant="outlined"
+                                        onChange={(e) => onChangeFamilyMember(idx, e)}
+                                        defaultValue={member}
+                                        label={`Member ${idx + 1}`}
+                                    />
+                                ))}
+                            </FormGroup>
+                            <Button type="submit">Save</Button>
+                            <Button>Delete</Button>
+                            <Button>Cancel</Button>
+                        </FormControl>
+                    </form>
+                }
             </Card>
         </Container>
     );
 }
 
 
-
-
-export default  FamilyPage;
+export default FamilyPage;
