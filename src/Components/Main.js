@@ -5,7 +5,6 @@ import { getAllFamilies } from '../Requests/FamilyRequests';
 import {useParams, useNavigate } from 'react-router-dom';
 
 const Main = ()=>{
-
     const [families, setFamilies] = useState([]);
     const [loading, setLoading] = useState(true);
 
@@ -21,7 +20,8 @@ const Main = ()=>{
     return (<Container>
             {loading ? (
                 <CircularProgress />
-            ) : (<>
+            ) : (
+                <>
                 <Button onClick={()=>{
                     navigate("/family/create");
                 }}>+</Button>

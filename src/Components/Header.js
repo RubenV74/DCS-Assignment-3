@@ -1,9 +1,18 @@
-import React, {useEffect, useState} from "react";
-import Card from '@mui/material/Card';
+import React from 'react';
+import { AppBar, Toolbar, Typography, Container } from '@mui/material';
 
 const Header = () => {
-
     return (
-        <h1></h1>
-    )
+        <AppBar position="static" color="default">
+            <Toolbar>
+                <Container maxWidth="md" style={{ textAlign: 'center' }}>
+                    <Typography variant="h4" component="div" style={{ flexGrow: 1 }}>
+                        Families Management
+                    </Typography>
+                </Container>
+            </Toolbar>
+        </AppBar>
+    );
 }
+
+export default Header;
