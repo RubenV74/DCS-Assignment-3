@@ -6,8 +6,8 @@ const FamilyCard = ({family}) => {
     const navigate = useNavigate();
 
     return (
-        <Card>
-        <Button onClick={()=> navigate(`family/${family._id}`)}>
+        <Card style={{ width: 300, height: 200 , marginTop: 20}} hoverable>
+        <Button onClick={()=> navigate(`family/${family._id}`)} style={{width: '100%', height: '100%',  padding: 0}}>
         <CardContent>
             <Typography variant="h5" component="div">
                 {family.name}

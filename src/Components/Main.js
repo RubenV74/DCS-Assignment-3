@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {Grid, Container, CircularProgress, Button} from '@mui/material';
+import {Box, Container, CircularProgress, Button} from '@mui/material';
 import FamilyCard from './FamilyCard';
 import { getAllFamilies } from '../Requests/FamilyRequests';
 import {useParams, useNavigate } from 'react-router-dom';
@@ -22,16 +22,26 @@ const Main = ()=>{
                 <CircularProgress />
             ) : (
                 <>
-                <Button onClick={()=>{
-                    navigate("/family/create");
-                }}>+</Button>
-                <Grid container spacing={3}>
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        style={{
+                            width: 70, // Adjust width as needed
+                            height: 70, // Adjust height as needed
+                            fontSize: '2rem', // Adjust font size as needed
+                            borderRadius: '50%', // Makes the button circular
+                            fontWeight: 'bold', // Makes the text bold
+                            textTransform: 'none', // Keeps text in original case
+                        }}
+                        onClick={() => navigate("/family/create")}
+                    >
+                        +
+                    </Button>
+                <Box sx={{ display: 'flex', flexDirection: 'row' , flexWrap: 'wrap', justifyContent: 'space-around'}} >
                     {families.map((family) => (
-                        <Grid item xs={12} sm={6} md={4} key={family._id}>
                             <FamilyCard family={family}/>
-                        </Grid>
                     ))}
-                </Grid>
+                </Box>
             </>   )}
         </Container>
     );
