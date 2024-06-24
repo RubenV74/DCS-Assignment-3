@@ -12,7 +12,6 @@ const FamilyPage =  () => {
     const [isEdit, setIsEdit] = useState(false);
     const [familyName, setFamilyName] = useState("");
     const [familyMembers, setFamilyMembers] = useState([]);
-    const [editedFamily,setEditedFamilt] = useState({})
 
     const  navigate =useNavigate();
     const onChangeFamilyName = (e) => setFamilyName(e.target.value);
@@ -87,7 +86,8 @@ const FamilyPage =  () => {
                                         key={idx}
                                         variant="outlined"
                                         onChange={(e) => onChangeFamilyMember(idx, e)}
-                                        defaultValue={familyMembers[idx]}
+                                        value={member}
+                                        placeholder={member}
                                         label={`Member ${idx + 1}`}
                                     />
                                     <Button onClick={(e)=> popFamilyMember(idx)}>X</Button>

@@ -1,10 +1,7 @@
-import React, {useEffect, useRef, useState} from "react";
-import {Card, CardContent, Typography, Container, Button, TextField, FormControl, FormGroup} from '@mui/material';
+import React, {useState} from "react";
+import {Button, TextField, FormControl, FormGroup} from '@mui/material';
 import {useNavigate } from 'react-router-dom';
-import {CircularProgress} from "@mui/material";
-import {createFamily, deleteFamily, getFamilyById} from "../Requests/FamilyRequests";
-import  {editFamily} from "../Requests/FamilyRequests";
-import App from "../App";
+import {createFamily} from "../Requests/FamilyRequests";
 
 const CreateFamilyPage =  () => {
     const [name, setName] = useState("");
@@ -54,7 +51,8 @@ const CreateFamilyPage =  () => {
                                     key={idx}
                                     variant="outlined"
                                     onChange={(e) => onChangeFamilyMember(idx, e)}
-                                    defaultValue={member}
+                                    value={member}
+                                    placeholder={member}
                                     label={`Member ${idx + 1}`}
                                 />
                                 <Button onClick={(e)=> popFamilyMember(idx)}>X</Button>
