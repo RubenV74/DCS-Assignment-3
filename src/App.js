@@ -14,6 +14,7 @@ function App() {
           <Route path="/" element={<Main />}/>
           <Route path="/family/:familyId" element={<FamilyPage/>}/>
           <Route path="/family/create" element={<CreateFamilyPage/>}/>
+            <Route path="*" element={<><h1>404</h1><p>Page Not Found</p></>}/>
         </Routes>
           </Layout>
       </BrowserRouter>

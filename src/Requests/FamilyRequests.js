@@ -1,6 +1,6 @@
 import  axios  from 'axios';
 
-const BASE_URL = process.env.REACT_APP_DEV_SERVER
+const BASE_URL = process.env.REACT_APP_PROD_SERVER
 
 const getAllFamilies = async ()=>{
    return  await axios.get(BASE_URL)
