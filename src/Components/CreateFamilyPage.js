@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import {Button, TextField, FormControl, FormGroup} from '@mui/material';
 import {useNavigate } from 'react-router-dom';
 import {createFamily} from "../Requests/FamilyRequests";
-
+import BackButton from './BackButton'
 const CreateFamilyPage =  () => {
     const [name, setName] = useState("");
     const [members, setMembers] = useState([]);
@@ -19,8 +19,8 @@ const CreateFamilyPage =  () => {
     }
 
     const popFamilyMember = (idx) =>{
-        members.splice(idx, 1);
-        setMembers(members);
+        const updatedMembers = members.filter((v,i)=> i === idx);
+        setMembers(updatedMembers);
     }
 
     const addMember = () => {
@@ -36,11 +36,13 @@ const CreateFamilyPage =  () => {
     }
 
     return (
-        <div>
-            <form onSubmit={submitNewFamily}>
-                <FormControl>
-                    <FormGroup>
+        <div style={{display: 'flex', flexDirection:'column'}}>
+            <BackButton/>
+            <form onSubmit={submitNewFamily} >
+                <FormControl style={{display: 'flex', marginTop: '2%'}}>
+                    <FormGroup >
                         <TextField
+                            style={{marginBottom: '2%'}}
                             onChange={onChangeFamilyName}
                             defaultValue={name}
                             label="Family Name"
@@ -48,6 +50,7 @@ const CreateFamilyPage =  () => {
                         {members.map((member, idx) => (
                             <div style={{ flexWrap: 'wrap' }}>
                                 <TextField
+                                    style={{marginBottom: '2%'}}
                                     key={idx}
                                     variant="outlined"
                                     onChange={(e) => onChangeFamilyMember(idx, e)}

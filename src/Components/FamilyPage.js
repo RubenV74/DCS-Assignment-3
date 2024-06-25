@@ -4,7 +4,7 @@ import {useParams, useNavigate } from 'react-router-dom';
 import {CircularProgress} from "@mui/material";
 import {deleteFamily, getFamilyById} from "../Requests/FamilyRequests";
 import  {editFamily} from "../Requests/FamilyRequests";
-
+import BackButton from "./BackButton";
 const FamilyPage =  () => {
     const {familyId} = useParams();
     const [family, setFamily] = useState({});
@@ -57,6 +57,7 @@ const FamilyPage =  () => {
     return (
         loading ? <CircularProgress/> :
         <Container className={'FamilyCard'} >
+            <BackButton/>
             <Card className={'FamilyCard'}>
                 {!isEdit ?
                     <CardContent>
@@ -72,17 +73,19 @@ const FamilyPage =  () => {
                         })}
                         <Button onClick={() => setIsEdit(true)}>Edit</Button>
                     </CardContent> :
-                    <form onSubmit={onSubmitFamilyEdit}>
-                        <FormControl>
-                            <FormGroup>
+                    <form onSubmit={onSubmitFamilyEdit}  style={{width: '100%'}}>
+                        <FormControl  style={{width: '100%'}}>
+                            <FormGroup  style={{width: '100%'}}>
                                 <TextField
+                                    style={{width: '80%', marginTop:'3%', marginLeft:'2%', marginBottom: '2%'}}
                                     onChange={onChangeFamilyName}
                                     defaultValue={family.name}
                                     label="Family Name"
                                 />
                                 {familyMembers.map((member, idx) => (
-                                    <div style={{ flexWrap: 'wrap' }}>
+                                    <div style={{display:'flex', flexWrap: 'wrap' }}>
                                     <TextField
+                                        style={{width: '80%', marginTop:'3%', marginLeft:'2%', marginBottom: '0'}}
                                         key={idx}
                                         variant="outlined"
                                         onChange={(e) => onChangeFamilyMember(idx, e)}
@@ -90,7 +93,7 @@ const FamilyPage =  () => {
                                         placeholder={member}
                                         label={`Member ${idx + 1}`}
                                     />
-                                    <Button onClick={(e)=> popFamilyMember(idx)}>X</Button>
+                                    <Button style={{alignSelf:'center'}} onClick={(e)=> popFamilyMember(idx)}>X</Button>
                                     </div>
                                 ))}
                             </FormGroup>

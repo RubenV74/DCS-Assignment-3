@@ -4,6 +4,41 @@ import FamilyCard from './FamilyCard';
 import { getAllFamilies } from '../Requests/FamilyRequests';
 import {useParams, useNavigate } from 'react-router-dom';
 
+
+
+const cardColors = {
+    greenCard: {
+        cardColor: '#B9FF66', //green
+        headingTextColor: '#191A23', // black
+        textHighlightColor: '#FFFFFF',
+        textColor: '#191A23',// grey
+    },
+    greyCard: {
+        cardColor: '#FFFFFF',
+        headingTextColor:  '#191A23',
+        textHighlightColor: '#B9FF66',
+        textColor: '#191A23',
+    },
+    blackCard:{
+        cardColor:'#191A23',
+        headingTextColor: '#191A23',
+        textHighlightColor:'#FFFFFF',
+        textColor: '#FFFFFF'
+    }
+}
+
+const applyCardColor = (idx) =>{
+    switch (idx) {
+        case 0:
+            return cardColors.greyCard;
+        case 1:
+            return cardColors.blackCard;
+        case 2:
+            return cardColors.greenCard;
+    }
+}
+
+
 const Main = ()=>{
     const [families, setFamilies] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -17,7 +52,7 @@ const Main = ()=>{
         });
     }, []);
 
-    return (<Container>
+    return (<Container style={{marginBottom: '5%'}}>
             {loading ? (
                 <CircularProgress />
             ) : (
@@ -38,8 +73,8 @@ const Main = ()=>{
                         +
                     </Button>
                 <Box sx={{ display: 'flex', flexDirection: 'row' , flexWrap: 'wrap', justifyContent: 'space-around'}} >
-                    {families.map((family) => (
-                            <FamilyCard family={family}/>
+                    {families.map((family, idx) => (
+                            <FamilyCard family={family} {...applyCardColor(idx%3)}/>
                     ))}
                 </Box>
             </>   )}
