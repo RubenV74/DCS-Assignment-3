@@ -12,13 +12,17 @@ const BackButton =()=> {
             variant="contained"
             color="primary"
             style={{
-                width: 70, // Adjust width as needed
-                height: 70, // Adjust height as needed
+                position:"absolute",
+                left: '15%',
+                top: '11%',
+                backgroundColor: '#B9FF66',
+                color: '#191A23',
+                width: 65, // Adjust width as needed
+                height: 65, // Adjust height as needed
                 fontSize: '2rem', // Adjust font size as needed
                 borderRadius: '50%', // Makes the button circular
                 fontWeight: 'bold', // Makes the text bold
                 textTransform: 'none', // Keeps text in original case
-                backgroundColor:'transparent'
             }}
         >
             <IoIosArrowBack style={{color: 'black'}} />

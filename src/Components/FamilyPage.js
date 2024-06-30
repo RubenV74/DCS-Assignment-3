@@ -21,11 +21,13 @@ const FamilyPage =  () => {
         updatedMembers[idx] = e.target.value; // Update the specific member at idx
         setFamilyMembers(updatedMembers); // Update state with the modified copy
     }
-    const onSubmitFamilyEdit = (e) =>{
-        editFamily(family._id, {
+    const onSubmitFamilyEdit = async (e) =>{
+        setLoading(true);
+        await editFamily(family._id, {
             name: familyName,
             members: familyMembers
         }).then(()=>setIsEdit(false))
+            .then(()=>setLoading(false))
     }
 
     const popFamilyMember = (idx) =>{
@@ -40,8 +42,13 @@ const FamilyPage =  () => {
         setFamily({...family, members: updatedMembers});
     }
 
-    const onClickDeleteFamily = () => {
-        deleteFamily(familyId).then((r)=> navigate('/'))
+    const onClickDeleteFamily = async () => {
+        setLoading(true);
+       await  deleteFamily(familyId)
+           .then(()=> setIsEdit(false))
+           .then(()=>setLoading(false))
+           .then((r)=> navigate('/'))
+
     }
 
     useEffect(() => {
@@ -52,21 +59,28 @@ const FamilyPage =  () => {
                 setFamilyMembers(data.members)
                 setLoading(false);
             })
-    }, []);
+    }, [isEdit]);
 
     return (
-        loading ? <CircularProgress/> :
-        <Container className={'FamilyCard'} >
+        loading ? <CircularProgress style={{
+            width:'100px',
+            height:'100px',
+                position: "fixed",
+                top: '50%',
+                left: '47%'
+        }}/> :
+        <Container style={{width: "87%"}} >
             <BackButton/>
-            <Card className={'FamilyCard'}>
+            <Card style={{marginTop:"5%"}}>
                 {!isEdit ?
-                    <CardContent>
-                        <Typography variant="h4" component="h2">
+                    <CardContent sx={{display: 'flex', flexDirection:'column'}}>
+                        <Typography sx={{alignSelf:"center", marginBottom:"3%"}}  variant="h4" component="h2">
                             {familyName}
                         </Typography>
-                        {familyMembers.map((member) => {
+
+                            {familyMembers.map((member) => {
                             return (
-                                <Typography variant="body2" component="p">
+                                <Typography sx={{alignSelf:'start',fontSize: 15, marginBottom :"1%", width:'60%'}} variant="body2" component="p">
                                     {member}
                                 </Typography>
                             )
@@ -101,9 +115,7 @@ const FamilyPage =  () => {
                                 addMember()
                             }}>Add member </Button>
                             <Button type="submit">Save</Button>
-                            <Button onClick={()=>{
-                                onClickDeleteFamily();
-                            }}>Delete </Button>
+                            <Button onClick={onClickDeleteFamily}>Delete </Button>
                             <Button onClick ={() => {
                                 setIsEdit(false)
                                 window.location.reload()

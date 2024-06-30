@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {Button, TextField, FormControl, FormGroup} from '@mui/material';
+import {Button, TextField, FormControl, FormGroup, Card} from '@mui/material';
 import {useNavigate } from 'react-router-dom';
 import {createFamily} from "../Requests/FamilyRequests";
 import BackButton from './BackButton'
@@ -19,7 +19,7 @@ const CreateFamilyPage =  () => {
     }
 
     const popFamilyMember = (idx) =>{
-        const updatedMembers = members.filter((v,i)=> i === idx);
+        const updatedMembers = members.filter((v,i)=> i !== idx);
         setMembers(updatedMembers);
     }
 
@@ -28,18 +28,18 @@ const CreateFamilyPage =  () => {
         setMembers(updatedMembers);
     }
 
-    const submitNewFamily = (e) => {
+    const submitNewFamily = async (e) => {
         e.preventDefault()
-        createFamily({name, members})
+        await createFamily({name, members})
             .then(r=>navigate('/'));
 
     }
 
     return (
-        <div style={{display: 'flex', flexDirection:'column'}}>
+        <div style={{display: 'flex', marginTop:'3%', flexDirection:'column'}}>
             <BackButton/>
             <form onSubmit={submitNewFamily} >
-                <FormControl style={{display: 'flex', marginTop: '2%'}}>
+                <FormControl style={{display: 'flex', marginLeft: "9%", marginTop: '2%', alignSelf:"center", width:'80%'}}>
                     <FormGroup >
                         <TextField
                             style={{marginBottom: '2%'}}
